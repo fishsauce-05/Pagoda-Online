@@ -1,0 +1,30 @@
+<!-- Rescue Life Modal -->
+<div class="modal fade gh-modal" id="rescueModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header bg-light-subtle py-3">
+        <h5 class="modal-title d-flex align-items-center gap-2 mb-0">
+          <span class="gh-modal-hero-icon"><i class="fa-solid fa-dove"></i></span>
+          Phóng sinh - Tích đức & Giải trừ nghiệp
+        </h5>
+        <button type="button" class="btn-close" onclick="cancelRescue()"></button>
+      </div>
+      <div class="modal-body p-4">
+        <p class="mb-4 text-center text-muted">Chọn duy nhất 1 loài vật để phóng sinh trong mỗi lần thực hiện.</p>
+        <div id="rescue-animals-list" class="row g-3">
+          <!-- Dynamically populated from JS -->
+        </div>
+        <div class="card border-0 bg-info-subtle mt-4 rounded-4">
+          <div class="card-body py-3 d-flex align-items-center justify-content-between">
+            <span class="fw-semibold d-flex align-items-center gap-2"><i class="fa-solid fa-receipt"></i> Tổng cộng</span>
+            <span id="rescue-total-price" class="badge text-bg-primary fs-6">0 VND</span>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer bg-light-subtle py-3">
+        <button type="button" class="btn btn-secondary" onclick="cancelRescue()">Hủy</button>
+        <button type="button" class="btn btn-primary" onclick="proceedRescuePayment()">Phóng sinh</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,59 @@
+<!-- Donation Modal -->
+<div class="modal fade gh-modal" id="donationModal" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
+  <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header bg-light-subtle py-3">
+        <h5 class="modal-title d-flex align-items-center gap-2 mb-0">
+          <span class="gh-modal-hero-icon"><i class="fa-solid fa-donate"></i></span>
+          Hòm công đức
+        </h5>
+      </div>
+      <div class="modal-body p-4">
+        <div class="row g-4 align-items-stretch">
+          <!-- Form Side -->
+          <div class="col-lg-6" id="donation-form">
+            <div class="h-100 p-3 p-md-4 border rounded-4 bg-white">
+              <div class="d-flex justify-content-between align-items-center mb-3">
+                <h6 class="mb-0">Thông tin công đức</h6>
+                <span class="badge text-bg-info">Bảo mật</span>
+              </div>
+              <form id="donationForm" class="row g-3">
+              <div class="mb-3">
+                <label for="donation-name" class="form-label">Họ và tên</label>
+                <input type="text" class="form-control" id="donation-name" placeholder="Nhập tên của bạn" required>
+              </div>
+              <div class="mb-3">
+                <label for="donation-amount" class="form-label">Số tiền (VND)</label>
+                <input type="number" class="form-control" id="donation-amount" placeholder="Nhập số tiền" min="1000" required>
+              </div>
+              <div class="mb-3">
+                <label for="donation-address" class="form-label">Địa chỉ</label>
+                <input type="text" class="form-control" id="donation-address" placeholder="Nhập địa chỉ của bạn" required>
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Lời nguyện</label>
+                <textarea class="form-control" rows="3" placeholder="Chia sẻ lời nguyện của bạn..."></textarea>
+              </div>
+              </form>
+            </div>
+          </div>
+          <!-- QR Side -->
+          <div class="col-lg-6">
+            <div class="h-100 p-3 p-md-4 border rounded-4 bg-light-subtle d-flex flex-column justify-content-center">
+              <div class="text-center mb-3">
+                <span class="gh-modal-hero-icon"><i class="fa-solid fa-qrcode"></i></span>
+                <h6 class="mt-2 mb-0">Thanh toán nhanh qua QR</h6>
+              </div>
+              <img src="../assets/img/qr/base.png" class="img-fluid rounded-4 border border-light-subtle mx-auto d-block" alt="QR Code" style="max-width: 280px;">
+              <p class="text-center text-muted small mb-0 mt-3">Quét mã QR để thanh toán và nhập thông tin bên cạnh</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer bg-light-subtle py-3">
+        <button type="button" class="btn btn-secondary" onclick="cancelDonation()">Hủy</button>
+        <button type="button" class="btn btn-primary" onclick="submitDonationForm()">Xác nhận & Gửi lễ</button>
+      </div>
+    </div>
+  </div>
+</div>

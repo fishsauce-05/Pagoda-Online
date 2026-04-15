@@ -1,0 +1,55 @@
+.gh-scroll-top-btn {
+    align-items: center;
+    background-color: #f4f4f4;
+    border-radius: 50%;
+    bottom: 30px;
+    display: flex;
+    height: 46px;
+    justify-content: center;
+    opacity: 0;
+    padding: 0;
+    position: fixed;
+    right: 30px;
+    transform: translateY(15px);
+    transition: background-color .25s ease, transform .25s ease, opacity .25s ease;
+    visibility: hidden;
+    width: 46px;
+    z-index: 1000;
+}
+
+.gh-scroll-top-btn:has(~#ghost-portal-root:not(:empty)) {
+    bottom: 100px;
+}
+
+.gh-scroll-top-btn.is-active {
+    opacity: 1;
+    transform: translateY(0);
+    visibility: visible;
+}
+
+.gh-scroll-top-btn.active {
+    opacity: 1;
+    transform: translateY(0);
+    visibility: visible;
+}
+
+.gh-scroll-top-arrow path {
+    stroke: #1d1d1f;
+}
+
+.gh-scroll-top-btn:hover {
+    background-color: #ededed;
+}
+
+.gh-scroll-top-progress {
+    left: 0;
+    position: absolute;
+    top: 0;
+}
+
+.gh-scroll-top-progress path {
+    stroke: #22c55e;
+    stroke-width: 4;
+    fill: none;
+    transition: stroke-dashoffset 0.08s linear;
+}

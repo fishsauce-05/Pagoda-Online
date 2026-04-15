@@ -1,0 +1,70 @@
+.gh-modal .modal-content {
+  border: 0;
+  border-radius: 1rem;
+  box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.12);
+}
+
+.gh-modal .modal-header {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.gh-modal .modal-footer {
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.gh-modal-hero-icon {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(63, 187, 192, 0.12);
+  color: #3fbbc0;
+}
+
+.fortune-question {
+  cursor: pointer;
+  border: 1px solid #dee2e6;
+  border-radius: 0.75rem;
+  transition: all 0.2s ease;
+}
+
+.fortune-question:hover {
+  border-color: #3fbbc0;
+  box-shadow: 0 0.4rem 1rem rgba(63, 187, 192, 0.12);
+}
+
+.fortune-question.is-selected {
+  border-color: #3fbbc0;
+  background: #f0fafb;
+  box-shadow: 0 0.5rem 1rem rgba(63, 187, 192, 0.14);
+}
+
+.rescue-animal-card {
+  border-radius: 0.75rem;
+  border: 1px solid #dee2e6;
+  transition: all 0.2s ease;
+}
+
+.rescue-animal-card:hover {
+  border-color: #3fbbc0;
+  box-shadow: 0 0.4rem 1rem rgba(63, 187, 192, 0.12);
+}
+
+.rescue-animal-card.is-selected {
+  border-color: #3fbbc0;
+  background: #f0fafb;
+  box-shadow: 0 0.5rem 1rem rgba(63, 187, 192, 0.14);
+}
+
+.rescue-animal-icon {
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(63, 187, 192, 0.12);
+  color: #3fbbc0;
+}

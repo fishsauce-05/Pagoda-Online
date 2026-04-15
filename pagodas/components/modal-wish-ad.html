@@ -1,0 +1,21 @@
+<div class="modal fade gh-modal" id="wishAdModal" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content">
+      <div class="modal-header bg-light-subtle py-3">
+        <h5 class="modal-title d-flex align-items-center gap-2 mb-0">
+          <span class="gh-modal-hero-icon"><i class="fa-solid fa-circle-play"></i></span>
+          Xem quảng cáo để mở khóa nội dung
+        </h5>
+      </div>
+      <div class="modal-body p-3 p-md-4">
+        <div class="ratio ratio-16x9 rounded-4 overflow-hidden bg-dark">
+          <video id="wishAdVideo" class="w-100 h-100" playsinline preload="metadata"></video>
+        </div>
+        <p class="text-muted small mt-3 mb-2 text-center">Quảng cáo phải xem liên tục trong 5 giây mới có thể bỏ qua.</p>
+        <div class="d-flex justify-content-center gap-3 flex-wrap">
+          <button type="button" id="wishAdSkipBtn" class="btn btn-secondary" disabled>Bỏ qua sau 5s</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

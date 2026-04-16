@@ -219,6 +219,7 @@ function cancelRescue() {
 
 // Fortune Telling Modal Handler
 let selectedFortuneQuestion = null;
+const CHUA_THANH_CHUA_FORTUNE_INDEXES = [3, 4, 5];
 
 function openFortuneModal() {
   selectedFortuneQuestion = null;
@@ -230,10 +231,15 @@ function openFortuneModal() {
 }
 
 function selectFortuneQuestion(index) {
+  if (!CHUA_THANH_CHUA_FORTUNE_INDEXES.includes(index)) {
+    return;
+  }
+
   selectedFortuneQuestion = index;
   // Update UI to show selection
-  document.querySelectorAll('[id^="question-"]').forEach((el, i) => {
-    if (i === index) {
+  document.querySelectorAll('[id^="question-"]').forEach((el) => {
+    const elementIndex = Number(el.id.replace('question-', ''));
+    if (elementIndex === index) {
       el.classList.add('is-selected');
     } else {
       el.classList.remove('is-selected');
@@ -242,7 +248,7 @@ function selectFortuneQuestion(index) {
 }
 
 function proceedFortunePayment() {
-  if (selectedFortuneQuestion === null) {
+  if (selectedFortuneQuestion === null || !CHUA_THANH_CHUA_FORTUNE_INDEXES.includes(selectedFortuneQuestion)) {
     alert('Vui lòng chọn 1 trong 3 câu hỏi');
     return;
   }

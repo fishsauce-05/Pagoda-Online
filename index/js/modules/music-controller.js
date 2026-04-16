@@ -1,6 +1,4 @@
-window.IndexApp = window.IndexApp || {};
-
-window.IndexApp.initBackgroundMusic = function initBackgroundMusic(options) {
+export function initBackgroundMusic(options) {
     const backgroundMusic = document.getElementById(options.audioId);
     const startMusicBtn = document.getElementById(options.startButtonId);
 
@@ -18,5 +16,4 @@ window.IndexApp.initBackgroundMusic = function initBackgroundMusic(options) {
     startMusicBtn.addEventListener("click", function() {
         startMusic();
     });
-  
-};
+}

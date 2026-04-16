@@ -1,6 +1,4 @@
-window.IndexApp = window.IndexApp || {};
-
-window.IndexApp.initScrollTopProgress = function initScrollTopProgress(options) {
+export function initScrollTopProgress(options) {
     const scrollTopBtn = document.querySelector(options.buttonSelector);
     const progressPath = document.querySelector(options.pathSelector);
 
@@ -33,4 +31,4 @@ window.IndexApp.initScrollTopProgress = function initScrollTopProgress(options) 
     });
 
     updateProgress();
-};
+}

@@ -46,6 +46,23 @@
 
     var incenseResetTimers = new WeakMap();
     var INCENSE_RESET_DELAY_MS = 5 * 60 * 1000;
+    var prayerMusic = new Audio('../assets/audio/chu-dai-bi.mp3');
+    var hasStartedPrayerMusic = false;
+
+    prayerMusic.loop = true;
+    prayerMusic.preload = 'auto';
+
+    function startPrayerMusicOnce() {
+      if (hasStartedPrayerMusic) {
+        return;
+      }
+
+      hasStartedPrayerMusic = true;
+      prayerMusic.play().catch(function () {
+        // If playback fails unexpectedly, allow retry on next click.
+        hasStartedPrayerMusic = false;
+      });
+    }
 
     function resetSlideToDefault(slideElement) {
       slideElement.classList.remove('is-incense-active');
@@ -76,6 +93,8 @@
 
     // INCENSE TRIGGER PER SLIDE
     $('.incense-trigger').on('click', function () {
+      startPrayerMusicOnce();
+
       var slideElement = this.closest('.hero-slide');
 
       if (!slideElement) {

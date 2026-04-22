@@ -755,42 +755,7 @@
   <script src="assets/js/activity.js"></script>
 
   <!-- Load Modals -->
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      const modalsToLoad = [
-        'components/modal-donation.html',
-        'components/modal-rescue.html',
-        'components/modal-fortune.html',
-        'components/modal-package-qr.html',
-        'components/modal-package-success.html',
-        'components/modal-wish-ad.html'
-      ];
-
-      const container = document.getElementById('modals-container');
-      let loadedCount = 0;
-
-      modalsToLoad.forEach(modalPath => {
-        fetch(modalPath)
-          .then(response => response.text())
-          .then(data => {
-            const tempDiv = document.createElement('div');
-            tempDiv.innerHTML = data;
-            Array.from(tempDiv.children).forEach(child => {
-              container.appendChild(child);
-            });
-            loadedCount++;
-            
-            if (loadedCount === modalsToLoad.length) {
-              console.log('All modals loaded successfully');
-                if (typeof initializeRescueAnimals === 'function') {
-                  initializeRescueAnimals();
-                }
-            }
-          })
-          .catch(error => console.error('Error loading modal:', modalPath, error));
-      });
-    });
-  </script>
+  <script src = "assets/js/modal-loader.js"></script>
 
   <!-- Main JS File -->
   <script src="assets/js/main.js"></script>

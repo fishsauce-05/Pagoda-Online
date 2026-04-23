@@ -801,7 +801,7 @@ section,
   }
 
   .wish .nav-link.active {
-    color: var(--accent-color);
+    color: var(--background-color);
     background: var(--accent-color);
   }
 

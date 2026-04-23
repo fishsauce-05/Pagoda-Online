@@ -17,7 +17,7 @@ export const prayPageConfig = {
     incenseImageClass: 'hero-incense',
     incenseImageSrc: '../assets/img/pagodas/index/lu-huong.png',
     incenseImageAlt: 'Lư hương',
-    audioSrc: '../assets/audio/chu-dai-bi.mp3',
+    audioSrc: '../assets/audio/index-background.mp3',
     resetDelayMs: 5 * 60 * 1000
   }
 };

@@ -43,10 +43,28 @@ export function createDonationHandlers() {
     showReactionImage(PATHS.reactionSad);
   }
 
+  function initEventListeners() {
+    document.addEventListener('click', (e) => {
+      const target = e.target;
+      if (target.closest('.js-donate-btn')) {
+        openDonationModal();
+        e.preventDefault();
+        return;
+      }
+
+      if (target.closest('.js-submit-donation-btn')) {
+        submitDonationForm();
+        return;
+      }
+
+      if (target.closest('.js-cancel-donation-btn')) {
+        cancelDonation();
+        return;
+      }
+    });
+  }
+
   return {
-    openDonationModal,
-    submitDonationForm,
-    closeDonationModal,
-    cancelDonation,
+    initEventListeners
   };
 }

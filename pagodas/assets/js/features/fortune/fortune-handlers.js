@@ -61,12 +61,38 @@ export function createFortuneHandlers() {
     showReactionImage(PATHS.reactionSad);
   }
 
+  function initEventListeners() {
+    document.addEventListener('click', (e) => {
+      const target = e.target;
+
+      if (target.closest('.js-fortune-telling-btn')) {
+        openFortuneModal();
+        e.preventDefault();
+        return;
+      }
+
+      const questionCard = target.closest('.js-fortune-telling-select');
+      if (questionCard) {
+        const questionIndex = Number(questionCard.dataset.questionIndex);
+        if (!Number.isNaN(questionIndex)) {
+          selectFortuneQuestion(questionIndex);
+        }
+        return;
+      }
+
+      if (target.closest('.js-fortune-telling-proceed')) {
+        proceedFortunePayment();
+        return;
+      }
+
+      if (target.closest('.js-fortune-telling-complete')) {
+        completeFortunePayment();
+        return;
+      }
+    });
+  }
+
   return {
-    openFortuneModal,
-    selectFortuneQuestion,
-    proceedFortunePayment,
-    completeFortunePayment,
-    closeFortuneModal,
-    cancelFortune,
+    initEventListeners
   };
 }

@@ -28,7 +28,7 @@ export function renderFortuneQuestionOptions(indexes, fortuneQueries) {
     element.id = `question-${questionIndex}`;
     element.dataset.questionIndex = String(questionIndex);
     element.classList.remove('d-none');
-    element.setAttribute('onclick', `selectFortuneQuestion(${questionIndex})`);
+    element.removeAttribute('onclick');
 
     if (titleElement) {
       titleElement.textContent = query.question;
@@ -63,7 +63,7 @@ export function renderFortuneQrModal() {
           </div>
           <div class="modal-footer justify-content-center gap-3">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Thoát</button>
-            <button type="button" class="btn btn-primary" onclick="completeFortunePayment()">Đã thanh toán</button>
+            <button type="button" class="btn btn-primary js-fortune-telling-complete">Đã thanh toán</button>
           </div>
         </div>
       </div>

@@ -1,4 +1,4 @@
-export function createSlideResetScheduler(resetDelayMs, onResetSlide) {
+export function createSlideResetRule(resetDelayMs, onResetSlide) {
   const timersBySlide = new WeakMap();
 
   return {

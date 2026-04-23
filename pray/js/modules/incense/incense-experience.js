@@ -1,7 +1,7 @@
 import { hasRequiredOptions } from './validation.js';
 import { createPrayerMusicController } from './music-controller.js';
 import { createSlideVisualController } from './slide-visual-controller.js';
-import { createSlideResetScheduler } from './slide-reset-scheduler.js';
+import { createSlideResetRule } from './slide-reset-rule.js';
 
 export function initIncenseExperience(options) {
   if (!window.jQuery || !hasRequiredOptions(options)) {
@@ -11,7 +11,7 @@ export function initIncenseExperience(options) {
   const jq = window.jQuery;
   const musicController = createPrayerMusicController(options.audioSrc);
   const slideVisualController = createSlideVisualController(options);
-  const slideResetScheduler = createSlideResetScheduler(options.resetDelayMs, slideVisualController.reset);
+  const slideResetScheduler = createSlideResetRule(options.resetDelayMs, slideVisualController.reset);
 
   jq(options.triggerSelector).on('click', function() {
     musicController.startOnce();

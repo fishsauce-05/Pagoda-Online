@@ -27,7 +27,7 @@ export function renderRescueAnimals(animals) {
     .join('');
 }
 
-export function renderRescueSelection(animals, selectedIndexes) {
+export function renderRescueSelection(animals, selectedIndex) {
   const container = document.getElementById('rescue-animals-list');
   if (!container) return;
 
@@ -36,7 +36,7 @@ export function renderRescueSelection(animals, selectedIndexes) {
     if (!card) return;
 
     const button = card.querySelector('.js-rescue-btn-label');
-    const isSelected = selectedIndexes.includes(index);
+    const isSelected = selectedIndex === index;
 
     card.classList.toggle('is-selected', isSelected);
 
@@ -47,12 +47,10 @@ export function renderRescueSelection(animals, selectedIndexes) {
     }
   });
 
-  //Mỗi lần chỉ được chọn 1 con để phóng sinh
-  const price = document.getElementById('rescue-total-price');
+  const price = document.getElementById('rescue-price-value');
   if (price) {
-    //Chỉ phải tính giá duy nhất của 1 con đó, không phải cộng dồn nhiều con vì chỉ được chọn 1 con
-    const totalPrice = selectedIndexes.length > 0 ? animals[selectedIndexes[0]].price : 0;
-    price.textContent = `${formatPrice(totalPrice)}`;
+    const priceValue = selectedIndex >= 0 ? animals[selectedIndex].price : 0;
+    price.textContent = `${formatPrice(priceValue)}`;
   }
 }
 

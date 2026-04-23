@@ -4,52 +4,50 @@ import { EVENTS } from '../../core/events/event-types.js';
 import { activityState } from '../../core/state/activity-state.js';
 import { hideModalById, showModalById } from '../../shared/modals/modal-adapter.js';
 import { showReactionImage } from '../../shared/modals/modal-img.js';
-import { computeTotalPrice, lifeRescueAnimals } from './rescue-logic.js';
+import { getPrice, lifeRescueAnimals } from './rescue-logic.js';
 import { renderRescueAnimals, renderRescueQr, renderRescueSelection } from './rescue-render.js';
 
 export function createRescueHandlers() {
   function initializeRescueAnimals() {
     renderRescueAnimals(lifeRescueAnimals);
-    renderRescueSelection(lifeRescueAnimals, activityState.getState().selectedRescueAnimals);
+    renderRescueSelection(lifeRescueAnimals, activityState.getState().selectedRescueIndex);
   }
 
   function openRescueModal() {
-    const nextSelection = [];
-    activityState.update({ selectedRescueAnimals: nextSelection });
-    renderRescueSelection(lifeRescueAnimals, nextSelection);
-    emit(EVENTS.RESCUE_SELECTION_CHANGED, { selectedIndexes: nextSelection });
+    const nextSelectedIndex = -1;
+    activityState.update({ selectedRescueIndex: nextSelectedIndex });
+    renderRescueSelection(lifeRescueAnimals, nextSelectedIndex);
+    emit(EVENTS.RESCUE_SELECTION_CHANGED, { selectedIndex: nextSelectedIndex });
     showModalById('rescueModal');
   }
 
   function toggleRescueAnimal(index) {
     const clickedIndex = parseInt(index, 10);
-    const selectedIndexes = activityState.getState().selectedRescueAnimals || [];
+    const currentSelectedIndex = activityState.getState().selectedRescueIndex;
 
-    const isAlreadySelected = selectedIndexes.includes(clickedIndex);
-    const nextSelection = isAlreadySelected ? [] : [clickedIndex];
+    const nextSelectedIndex = currentSelectedIndex === clickedIndex ? -1 : clickedIndex;
 
-    activityState.update({ selectedRescueAnimals: nextSelection });
-    renderRescueSelection(lifeRescueAnimals, nextSelection);
+    activityState.update({ selectedRescueIndex: nextSelectedIndex });
+    renderRescueSelection(lifeRescueAnimals, nextSelectedIndex);
 
-    emit(EVENTS.RESCUE_SELECTION_CHANGED, { selectedIndexes: nextSelection });
+    emit(EVENTS.RESCUE_SELECTION_CHANGED, { selectedIndex: nextSelectedIndex });
   }
 
   function proceedRescuePayment() {
-    const selectedIndexes = activityState.getState().selectedRescueAnimals || [];
+    const selectedIndex = activityState.getState().selectedRescueIndex;
 
-    if (selectedIndexes.length === 0) {
+    if (selectedIndex < 0) {
       window.alert('Vui lòng chọn một con vật để phóng sinh');
       return;
     }
 
-    const selectedIndex = selectedIndexes[0];
     const animal = lifeRescueAnimals[selectedIndex];
     hideModalById('rescueModal');
 
     renderRescueQr({
       qrImage: animal.image,
       animalNames: animal.name,
-      totalPrice: computeTotalPrice(selectedIndexes)
+      totalPrice: getPrice(selectedIndex)
     });
   }
 
@@ -62,17 +60,17 @@ export function createRescueHandlers() {
   function completeRescuePayment() {
     hideModalById('rescueQRModal');
     emit(EVENTS.RESCUE_PAYMENT_COMPLETED, {
-      selectedIndexes: activityState.getState().selectedRescueAnimals
+      selectedIndex: activityState.getState().selectedRescueIndex
     });
     showReactionImage(PATHS.reactionHappy);
   }
 
   function cancelRescue() {
     hideModalById('rescueModal');
-    const nextSelection = [];
-    activityState.update({ selectedRescueAnimals: nextSelection });
-    renderRescueSelection(lifeRescueAnimals, nextSelection);
-    emit(EVENTS.RESCUE_SELECTION_CHANGED, { selectedIndexes: nextSelection });
+    const nextSelectedIndex = -1;
+    activityState.update({ selectedRescueIndex: nextSelectedIndex });
+    renderRescueSelection(lifeRescueAnimals, nextSelectedIndex);
+    emit(EVENTS.RESCUE_SELECTION_CHANGED, { selectedIndex: nextSelectedIndex });
     emit(EVENTS.RESCUE_CANCELLED, { source: 'modal' });
     showReactionImage(PATHS.reactionSad);
   }
@@ -83,6 +81,7 @@ export function createRescueHandlers() {
 
       if (target.closest('.js-rescue-animal-btn')) {
         openRescueModal();
+        e.preventDefault();
         return;
       }
 

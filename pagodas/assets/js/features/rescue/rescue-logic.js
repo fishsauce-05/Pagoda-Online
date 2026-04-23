@@ -6,10 +6,6 @@ export const lifeRescueAnimals = [
   { name: 'Hoàng tử ếch', icon: 'fa-frog', price: 900000, image: PATHS.frogRescue }
 ];
 
-export function computeTotalPrice(selectedIndexes) {
-  return selectedIndexes.reduce((sum, index) => sum + lifeRescueAnimals[index].price, 0);
-}
-
-export function getSingleSelectedIndex(selectedIndexes) {
-  return selectedIndexes[0];
+export function getPrice(selectedIndex) {
+  return lifeRescueAnimals[selectedIndex].price;
 }

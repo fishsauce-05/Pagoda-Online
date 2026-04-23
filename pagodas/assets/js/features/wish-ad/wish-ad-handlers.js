@@ -106,7 +106,7 @@ export function createWishAdHandlers() {
 
   function initWishAdButtons() {
     document.addEventListener('click', (event) => {
-      const trigger = event.target.closest('.js-wish-ad-btn');
+      const trigger = event.target.closest('.wish-ad-btn');
       if (!trigger) {
         return;
       }

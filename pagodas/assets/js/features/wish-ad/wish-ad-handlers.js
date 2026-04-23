@@ -56,7 +56,7 @@ export function createWishAdHandlers() {
     });
 
     wishAdSkipBtn.disabled = true;
-    wishAdSkipBtn.textContent = `Bỏ qua sau ${FLAGS.wishAdSkipSeconds}s`;
+    wishAdSkipBtn.textContent = `Bỏ qua`;
 
     wishAdVideo.controls = false;
     wishAdVideo.setAttribute('playsinline', 'playsinline');

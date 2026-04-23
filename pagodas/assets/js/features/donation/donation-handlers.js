@@ -10,7 +10,8 @@ function getDonationPayload() {
   return {
     name: document.getElementById('donation-name')?.value.trim(),
     amount: document.getElementById('donation-amount')?.value.trim(),
-    address: document.getElementById('donation-address')?.value.trim()
+    address: document.getElementById('donation-address')?.value.trim(),
+    message: document.getElementById('donation-message')?.value.trim()
   };
 }
 

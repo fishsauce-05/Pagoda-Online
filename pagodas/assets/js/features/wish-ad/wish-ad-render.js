@@ -25,7 +25,7 @@ export function revealWishContent(targetId, triggerButton) {
 export function resetWishAdVideo(video, skipButton) {
   if (skipButton) {
     skipButton.disabled = true;
-    skipButton.textContent = 'Bỏ qua sau 5s';
+    skipButton.textContent = 'Bỏ qua';
   }
 
   if (!video) {

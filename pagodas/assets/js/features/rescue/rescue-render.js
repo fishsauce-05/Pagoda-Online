@@ -2,46 +2,43 @@ import { formatPrice } from '../../core/utils/format.js';
 import { appendHtml, removeIfExists } from '../../core/utils/dom.js';
 import { showModalById } from '../../shared/modals/modal-adapter.js';
 
-export function renderRescueAnimals(animals, onToggle) {
+export function renderRescueAnimals(animals) {
   const rescueContainer = document.getElementById('rescue-animals-list');
-  if (!rescueContainer) {
-    return;
-  }
+  if (!rescueContainer) return;
 
   rescueContainer.innerHTML = animals
     .map(
       (animal, index) => `
       <div class="col-md-4">
-        <div id="rescue-animal-${index}" class="rescue-animal-card card text-center p-3 h-100">
+        <div class="rescue-animal-card card text-center p-3 h-100 js-rescue-animal-item" data-index="${index}">
           <div class="mb-2">
             <span class="rescue-animal-icon fs-3"><i class="fa-solid ${animal.icon}"></i></span>
           </div>
           <h5 class="card-title mb-1">${animal.name}</h5>
           <p class="card-text text-muted mb-3">${formatPrice(animal.price)}</p>
-          <button id="rescue-btn-${index}" type="button" class="btn btn-sm btn-outline-primary">Chọn phóng sinh</button>
+          
+          <button type="button" class="btn btn-sm btn-outline-primary js-rescue-btn-label">
+            Chọn phóng sinh
+          </button>
         </div>
       </div>
     `
     )
     .join('');
-
-  animals.forEach((_, index) => {
-    const button = document.getElementById(`rescue-btn-${index}`);
-    if (button) {
-      button.addEventListener('click', () => onToggle(index));
-    }
-  });
 }
 
 export function renderRescueSelection(animals, selectedIndexes) {
+  const container = document.getElementById('rescue-animals-list');
+  if (!container) return;
+
   animals.forEach((_, index) => {
-    const card = document.getElementById(`rescue-animal-${index}`);
-    const button = document.getElementById(`rescue-btn-${index}`);
+    const card = container.querySelector(`.js-rescue-animal-item[data-index="${index}"]`);
+    if (!card) return;
+
+    const button = card.querySelector('.js-rescue-btn-label');
     const isSelected = selectedIndexes.includes(index);
 
-    if (card) {
-      card.classList.toggle('is-selected', isSelected);
-    }
+    card.classList.toggle('is-selected', isSelected);
 
     if (button) {
       button.textContent = isSelected ? 'Hủy phóng sinh' : 'Chọn phóng sinh';
@@ -50,10 +47,12 @@ export function renderRescueSelection(animals, selectedIndexes) {
     }
   });
 
-  const totalElement = document.getElementById('rescue-total-price');
-  if (totalElement) {
-    const totalPrice = selectedIndexes.reduce((sum, index) => sum + animals[index].price, 0);
-    totalElement.textContent = formatPrice(totalPrice);
+  //Mỗi lần chỉ được chọn 1 con để phóng sinh
+  const price = document.getElementById('rescue-total-price');
+  if (price) {
+    //Chỉ phải tính giá duy nhất của 1 con đó, không phải cộng dồn nhiều con vì chỉ được chọn 1 con
+    const totalPrice = selectedIndexes.length > 0 ? animals[selectedIndexes[0]].price : 0;
+    price.textContent = `${formatPrice(totalPrice)}`;
   }
 }
 
@@ -71,8 +70,8 @@ export function renderRescueQr({ qrImage, animalNames, totalPrice }) {
             <p class="text-muted">Quét mã QR để thanh toán</p>
           </div>
           <div class="modal-footer justify-content-center gap-3">
-            <button type="button" class="btn btn-secondary" onclick="onRescueCancelled()">Thoát</button>
-            <button type="button" class="btn btn-primary" onclick="completeRescuePayment()">Tôi đã chuyển khoản</button>
+            <button type="button" class="btn btn-secondary js-rescue-qr-cancel-btn">Thoát</button>
+            <button type="button" class="btn btn-primary js-rescue-qr-complete-btn">Tôi đã chuyển khoản</button>
           </div>
         </div>
       </div>

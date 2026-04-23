@@ -4,12 +4,12 @@ import { EVENTS } from '../../core/events/event-types.js';
 import { activityState } from '../../core/state/activity-state.js';
 import { hideModalById, showModalById } from '../../shared/modals/modal-adapter.js';
 import { showReactionImage } from '../../shared/modals/modal-img.js';
-import { computeTotalPrice, getSingleSelectedIndex, lifeRescueAnimals } from './rescue-logic.js';
+import { computeTotalPrice, lifeRescueAnimals } from './rescue-logic.js';
 import { renderRescueAnimals, renderRescueQr, renderRescueSelection } from './rescue-render.js';
 
 export function createRescueHandlers() {
   function initializeRescueAnimals() {
-    renderRescueAnimals(lifeRescueAnimals, toggleRescueAnimal);
+    renderRescueAnimals(lifeRescueAnimals);
     renderRescueSelection(lifeRescueAnimals, activityState.getState().selectedRescueAnimals);
   }
 
@@ -22,25 +22,33 @@ export function createRescueHandlers() {
   }
 
   function toggleRescueAnimal(index) {
-    const selected = activityState.getState().selectedRescueAnimals;
-    const nextSelection = selected.includes(index) ? [] : [index];
+    const clickedIndex = parseInt(index, 10);
+    const selectedIndexes = activityState.getState().selectedRescueAnimals || [];
+
+    const isAlreadySelected = selectedIndexes.includes(clickedIndex);
+    const nextSelection = isAlreadySelected ? [] : [clickedIndex];
+
     activityState.update({ selectedRescueAnimals: nextSelection });
     renderRescueSelection(lifeRescueAnimals, nextSelection);
+
     emit(EVENTS.RESCUE_SELECTION_CHANGED, { selectedIndexes: nextSelection });
   }
 
   function proceedRescuePayment() {
-    const selectedIndexes = activityState.getState().selectedRescueAnimals;
+    const selectedIndexes = activityState.getState().selectedRescueAnimals || [];
+
     if (selectedIndexes.length === 0) {
-      window.alert('Vui lòng chọn ít nhất một loại động vật để phóng sinh');
+      window.alert('Vui lòng chọn một con vật để phóng sinh');
       return;
     }
 
+    const selectedIndex = selectedIndexes[0];
+    const animal = lifeRescueAnimals[selectedIndex];
     hideModalById('rescueModal');
-    const selectedIndex = getSingleSelectedIndex(selectedIndexes);
+
     renderRescueQr({
-      qrImage: lifeRescueAnimals[selectedIndex].image,
-      animalNames: selectedIndexes.map((i) => lifeRescueAnimals[i].name).join(', '),
+      qrImage: animal.image,
+      animalNames: animal.name,
       totalPrice: computeTotalPrice(selectedIndexes)
     });
   }
@@ -69,13 +77,47 @@ export function createRescueHandlers() {
     showReactionImage(PATHS.reactionSad);
   }
 
+  function initEventListeners() {
+    document.addEventListener('click', (e) => {
+      const target = e.target;
+
+      if (target.closest('.js-rescue-animal-btn')) {
+        openRescueModal();
+        return;
+      }
+
+      //Sử dụng js-rescue-animal-item và data-index
+      const animalItem = target.closest('.js-rescue-animal-item');
+      if (animalItem) {
+        const index = parseInt(animalItem.dataset.index, 10);
+        toggleRescueAnimal(index);
+        return;
+      }
+
+      if (target.closest('.js-rescue-proceed-btn')) {
+        proceedRescuePayment();
+        return;
+      }
+
+      if (target.closest('.js-rescue-cancel-btn')) {
+        cancelRescue();
+        return;
+      }
+
+      if (target.closest('.js-rescue-qr-cancel-btn')) {
+        onRescueCancelled();
+        return;
+      }
+
+      if (target.closest('.js-rescue-qr-complete-btn')) {
+        completeRescuePayment();
+        return;
+      }
+
+    });
+  }
   return {
     initializeRescueAnimals,
-    openRescueModal,
-    toggleRescueAnimal,
-    proceedRescuePayment,
-    onRescueCancelled,
-    completeRescuePayment,
-    cancelRescue
+    initEventListeners
   };
 }

@@ -8,14 +8,12 @@ import { getPrice, lifeRescueAnimals } from './rescue-logic.js';
 import { renderRescueAnimals, renderRescueQr, renderRescueSelection } from './rescue-render.js';
 
 export function createRescueHandlers() {
-  function initializeRescueAnimals() {
-    renderRescueAnimals(lifeRescueAnimals);
-    renderRescueSelection(lifeRescueAnimals, activityState.getState().selectedRescueIndex);
-  }
 
   function openRescueModal() {
     const nextSelectedIndex = -1;
     activityState.update({ selectedRescueIndex: nextSelectedIndex });
+
+    renderRescueAnimals(lifeRescueAnimals);
     renderRescueSelection(lifeRescueAnimals, nextSelectedIndex);
     emit(EVENTS.RESCUE_SELECTION_CHANGED, { selectedIndex: nextSelectedIndex });
     showModalById('rescueModal');
@@ -116,7 +114,6 @@ export function createRescueHandlers() {
     });
   }
   return {
-    initializeRescueAnimals,
     initEventListeners
   };
 }

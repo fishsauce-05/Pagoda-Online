@@ -17,6 +17,3 @@ export const EVENTS = {
   WISH_AD_STARTED: 'WISH_AD_STARTED',
   WISH_UNLOCKED: 'WISH_UNLOCKED'
 };
-
-export const EVENTS_TYPES = EVENTS;
-export const EVENT_TYPES = EVENTS;

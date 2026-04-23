@@ -7,7 +7,7 @@ export const prayPageConfig = {
 
   heroCarouselTrigger: {
     carouselSelector: '#heroCarousel',
-    triggerSelector: '.buy-ticket-carousel-trigger'
+    triggerSelector: '.next-carousel-trigger'
   },
   
   incenseExperience: {

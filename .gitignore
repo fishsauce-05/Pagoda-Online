@@ -43,5 +43,4 @@ temp/
 *.swp
 *.swo
 
-.venv/
 .sixth/
